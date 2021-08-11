@@ -14,9 +14,26 @@ var (
 	nCounter = make([]int, 0)
 )
 
-func CountNumber() int {
-	for i := 0; i < 84; i++ {
+func countNumber(out chan<- int) {
+	for i := 0; i < 100; i++ {
 		nCounter = append(nCounter, i)
+		out <- len(nCounter)
 	}
-	return len(nCounter)
+	close(out)
+	//return len(nCounter)
+}
+
+func MetricsCountQuery() int {
+	total := make(chan int)
+
+	go countNumber(total)
+	return printer(total)
+}
+
+func printer(in <-chan int) int {
+	var total int
+	for v := range in {
+		total = v
+	}
+	return total
 }

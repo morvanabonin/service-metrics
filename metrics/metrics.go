@@ -16,9 +16,23 @@ type (
 	}
 )
 
+// func metricsCountQuery() int {
+// 	total := make(chan int)
+
+// 	go counter.CountNumber(total)
+// 	return printer(total)
+// }
+
+// func printer(in <-chan int) int {
+// 	var total int
+// 	for v := range in {
+// 		total = v
+// 	}
+// 	return total
+// }
+
 var (
-	countNumber = float64(counter.CountNumber())
-	//countString = strconv.Itoa(countNumber)
+	countNumber = float64(counter.MetricsCountQuery())
 )
 
 var (
